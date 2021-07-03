@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">PlantKeeper</string>
+  <string name="watering">Watering:</string>
 </resources>

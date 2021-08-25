@@ -1,11 +1,10 @@
-package com.example.plantkeeper.plantslist
+package com.example.plantkeeper.ui.plantslist
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plantkeeper.R
-import com.example.plantkeeper.data.database.entities.PlantDBO
 import com.example.plantkeeper.domain.Plant
 import com.example.plantkeeper.model.views.PoppinsLightTextView
 

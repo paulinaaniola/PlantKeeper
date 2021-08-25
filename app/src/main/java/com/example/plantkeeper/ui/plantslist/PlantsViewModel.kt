@@ -1,4 +1,4 @@
-package com.example.plantkeeper.plantslist
+package com.example.plantkeeper.ui.plantslist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

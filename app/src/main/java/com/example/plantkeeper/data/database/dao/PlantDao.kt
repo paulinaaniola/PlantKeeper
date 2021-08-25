@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.plantkeeper.data.database.entities.PlantDBO
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PlantDao {
@@ -12,6 +13,6 @@ interface PlantDao {
     fun insertPlant(plant: PlantDBO)
 
     @Query("SELECT * FROM plants_table")
-    fun getAllPlants(): List<PlantDBO>
+    fun getAllPlants(): Flow<List<PlantDBO>>
 
 }

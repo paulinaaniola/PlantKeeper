@@ -1,11 +1,12 @@
 package com.example.plantkeeper.application
 
 import android.app.Application
-import com.example.plantkeeper.di.databaseModule
+import com.example.plantkeeper.di.applicationModule
 import com.example.plantkeeper.di.presentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 class PlantKeeperApplication : Application() {
 
@@ -17,9 +18,8 @@ class PlantKeeperApplication : Application() {
 
     private fun initKoin() {
         startKoin {
-            androidLogger()
             androidContext(this@PlantKeeperApplication)
-            modules(listOf(databaseModule, presentationModule))
+            modules(listOf(applicationModule, presentationModule))
         }
     }
 }

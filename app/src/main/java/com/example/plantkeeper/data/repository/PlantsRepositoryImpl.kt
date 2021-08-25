@@ -15,7 +15,7 @@ class PlantsRepositoryImpl(
             .getAllPlants()
             .map { plantsMapper.mapDbPlantsToDomain(it) }
 
-    override fun insertPlant(plant: PlantDBO) {
+    override suspend fun insertPlant(plant: PlantDBO) {
         plantsDao.insertPlant(plant)
     }
 }

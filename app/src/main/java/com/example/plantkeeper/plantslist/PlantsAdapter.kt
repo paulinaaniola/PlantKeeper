@@ -14,7 +14,7 @@ class PlantsAdapter : RecyclerView.Adapter<PlantsAdapter.PlantViewHolder>() {
     private val plants = mutableListOf<Plant>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_plant, parent)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_plant, parent, false)
         return PlantViewHolder(view)
     }
 

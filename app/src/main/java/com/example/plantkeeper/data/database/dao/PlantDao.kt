@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface PlantDao {
 
     @Insert
-    fun insertPlant(plant: PlantDBO)
+    suspend fun insertPlant(plant: PlantDBO)
 
     @Query("SELECT * FROM plants_table")
     fun getAllPlants(): Flow<List<PlantDBO>>

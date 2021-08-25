@@ -21,7 +21,7 @@ class PlantsActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-        plantsViewModel.addPlant()
+        //plantsViewModel.addPlant()
         super.onStart()
     }
 

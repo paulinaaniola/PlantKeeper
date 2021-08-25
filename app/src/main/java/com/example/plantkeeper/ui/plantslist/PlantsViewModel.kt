@@ -13,10 +13,4 @@ class PlantsViewModel(private val plantsRepositoryImpl: PlantsRepository) : View
 
     val plantsList: LiveData<List<Plant>> = plantsRepositoryImpl.getAllPlants().asLiveData()
 
-    fun addPlant() {
-        viewModelScope.launch {
-            plantsRepositoryImpl.insertPlant(PlantDBO(1, "Storczyk", 2))
-            plantsRepositoryImpl.insertPlant(PlantDBO(2, "Monstera", 10))
-        }
-    }
 }

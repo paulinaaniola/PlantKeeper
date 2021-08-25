@@ -10,4 +10,9 @@
         android:name="com.example.plantkeeper.ui.plantslist.PlantsFragment"
         tools:layout="@layout/fragment_plants" />
 
+    <fragment
+        android:id="@+id/navigation_add_plant"
+        android:name="com.example.plantkeeper.ui.addplant.AddPlantFragment"
+        tools:layout="@layout/fragment_add_plant" />
+
 </navigation>

@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantkeeper.R
 import kotlinx.android.synthetic.main.activity_navigation.*
@@ -28,14 +30,14 @@ class PlantsFragment : Fragment() {
 
     override fun onStart() {
         setupRecyclerView()
+        setupAddPlantFab()
         configureDataObservers()
-        //plantsViewModel.addPlant()
         super.onStart()
     }
 
     private fun setupRecyclerView() {
-        plantsRecyclerView.layoutManager = LinearLayoutManager(context)
-        plantsRecyclerView.adapter = plantsAdapter
+        plants_recycler_view.layoutManager = LinearLayoutManager(context)
+        plants_recycler_view.adapter = plantsAdapter
     }
 
     private fun configureDataObservers() {
@@ -44,5 +46,11 @@ class PlantsFragment : Fragment() {
                 plantsAdapter.updatePlants(it)
             }
         })
+    }
+
+    private fun setupAddPlantFab() {
+        add_plant_fab_menu_image_view.setOnClickListener {
+            findNavController().navigate(R.id.navigation_add_plant)
+        }
     }
 }

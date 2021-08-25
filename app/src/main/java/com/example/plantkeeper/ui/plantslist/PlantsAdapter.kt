@@ -33,6 +33,6 @@ class PlantsAdapter : RecyclerView.Adapter<PlantsAdapter.PlantViewHolder>() {
     }
 
     class PlantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val plantNameTextView: PoppinsLightTextView = view.findViewById(R.id.plantNameTextView)
+        val plantNameTextView: PoppinsLightTextView = view.findViewById(R.id.plant_name_text_view)
     }
 }

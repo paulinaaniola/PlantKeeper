@@ -39,6 +39,7 @@ class AddPlantFragment : Fragment() {
     private fun setupSavePlantFab() {
         save_plant_fab_menu_image_view.setOnClickListener {
             addPlantViewModel.insertPlant()
+            findNavController().navigate(R.id.action_navigate_back_to_plants)
         }
     }
 }

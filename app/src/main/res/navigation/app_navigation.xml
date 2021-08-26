@@ -13,6 +13,16 @@
     <fragment
         android:id="@+id/navigation_add_plant"
         android:name="com.example.plantkeeper.ui.addplant.AddPlantFragment"
-        tools:layout="@layout/fragment_add_plant" />
+        tools:layout="@layout/fragment_add_plant">
+        <action
+            android:id="@+id/action_navigate_back_to_plants"
+            app:destination="@id/navigation_plants_list"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/navigation_plants_list"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

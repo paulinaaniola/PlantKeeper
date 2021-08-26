@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "plants_table")
 data class PlantDBO(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null,
     val name: String,
     val wateringFrequency: Int
 )

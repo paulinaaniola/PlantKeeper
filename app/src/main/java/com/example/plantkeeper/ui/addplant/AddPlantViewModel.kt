@@ -12,7 +12,7 @@ class AddPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) : Vi
 
     fun insertPlant() {
         viewModelScope.launch {
-            plantsRepositoryImpl.insertPlant(PlantDBO(4, plantName, 2))
+            plantsRepositoryImpl.insertPlant(PlantDBO(name = plantName, wateringFrequency = 2))
         }
     }
 }

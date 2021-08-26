@@ -9,10 +9,18 @@ import kotlinx.coroutines.launch
 class AddPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) : ViewModel() {
 
     var plantName: String = ""
+    var wateringFrequency: Int? = null
 
     fun insertPlant() {
-        viewModelScope.launch {
-            plantsRepositoryImpl.insertPlant(PlantDBO(name = plantName, wateringFrequency = 2))
+        wateringFrequency?.let { wateringFrequency ->
+            viewModelScope.launch {
+                plantsRepositoryImpl.insertPlant(
+                    PlantDBO(
+                        name = plantName,
+                        wateringFrequency = wateringFrequency
+                    )
+                )
+            }
         }
     }
 }

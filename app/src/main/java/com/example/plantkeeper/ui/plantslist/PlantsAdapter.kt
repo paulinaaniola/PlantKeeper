@@ -3,10 +3,10 @@ package com.example.plantkeeper.ui.plantslist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plantkeeper.R
 import com.example.plantkeeper.domain.Plant
-import com.example.plantkeeper.model.views.PoppinsLightTextView
 
 class PlantsAdapter : RecyclerView.Adapter<PlantsAdapter.PlantViewHolder>() {
 
@@ -24,6 +24,7 @@ class PlantsAdapter : RecyclerView.Adapter<PlantsAdapter.PlantViewHolder>() {
     override fun onBindViewHolder(holder: PlantViewHolder, position: Int) {
         val plant = plants[position]
         holder.plantNameTextView.text = plant.name
+        holder.wateringFrequencyTextView.text = plant.wateringFrequency
     }
 
     fun updatePlants(plants: List<Plant>) {
@@ -33,6 +34,8 @@ class PlantsAdapter : RecyclerView.Adapter<PlantsAdapter.PlantViewHolder>() {
     }
 
     class PlantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val plantNameTextView: PoppinsLightTextView = view.findViewById(R.id.plant_name_text_view)
+        val plantNameTextView: TextView = view.findViewById(R.id.plant_name_text_view)
+        val wateringFrequencyTextView: TextView =
+            view.findViewById(R.id.watering_frequency_text_view)
     }
 }

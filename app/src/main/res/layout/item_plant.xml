@@ -22,32 +22,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.example.plantkeeper.model.views.PoppinsLightTextView
+    <TextView
         android:id="@+id/plant_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:fontFamily="@font/poppins_regular"
         android:layout_marginTop="10dp"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@id/plant_image_view"
         app:layout_constraintTop_toTopOf="@id/plant_image_view" />
 
-    <com.example.plantkeeper.model.views.PoppinsLightTextView
-        android:id="@+id/watering_label_text_view"
+    <TextView
+        android:id="@+id/watering_frequency_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:fontFamily="@font/poppins_bold"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@id/plant_image_view"
-        app:layout_constraintTop_toBottomOf="@id/plant_name_text_view" />
-
-    <com.example.plantkeeper.model.views.PoppinsSemiBoldTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:text="every 2 weeks"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@id/watering_label_text_view"
+        app:layout_constraintStart_toStartOf="@+id/plant_name_text_view"
         app:layout_constraintTop_toBottomOf="@id/plant_name_text_view" />
 
     <ImageView

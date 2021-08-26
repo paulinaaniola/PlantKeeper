@@ -9,10 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/new_plant_to_add"
+        app:layout_constraintBottom_toTopOf="@id/watering_frequency_edit_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <EditText
+        android:id="@+id/watering_frequency_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/watering_frequency"
+        android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/new_plant_name_edit_text" />
 
     <ImageView
         android:id="@+id/save_plant_fab_menu_image_view"

@@ -1,4 +1,5 @@
 <resources>
-  <string name="app_name">PlantKeeper</string>
-  <string name="new_plant_to_add">New plant to add</string>
+    <string name="app_name">PlantKeeper</string>
+    <string name="new_plant_to_add">Plant name</string>
+    <string name="watering_frequency">Watering frequency</string>
 </resources>

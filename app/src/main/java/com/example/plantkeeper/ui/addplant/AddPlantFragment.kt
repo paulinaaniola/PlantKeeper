@@ -26,13 +26,16 @@ class AddPlantFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        setupPlantNameChangeListener()
+        setupInputsChangeListeners()
         setupSavePlantFab()
     }
 
-    private fun setupPlantNameChangeListener() {
+    private fun setupInputsChangeListeners() {
         new_plant_name_edit_text.addOnTextChanged {
             addPlantViewModel.plantName = it
+        }
+        watering_frequency_edit_text.addOnTextChanged {
+            addPlantViewModel.wateringFrequency = it.toInt()
         }
     }
 

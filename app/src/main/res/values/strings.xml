@@ -2,4 +2,7 @@
     <string name="app_name">PlantKeeper</string>
     <string name="new_plant_to_add">Plant name</string>
     <string name="watering_frequency">Watering frequency</string>
+    <string name="name_colon">Name:</string>
+    <string name="water_every_colon">Water every:</string>
+    <string name="days">days</string>
 </resources>

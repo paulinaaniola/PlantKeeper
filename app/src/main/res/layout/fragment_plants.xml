@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     android:background="@color/brown_light"
     tools:context=".ui.plantslist.PlantsFragment">
 
@@ -11,7 +12,7 @@
         android:id="@+id/app_name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/yellowtail_regular"
         android:text="@string/app_name"
         android:textSize="36dp"

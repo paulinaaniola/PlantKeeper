@@ -4,8 +4,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    compileSdkVersion 31
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.example.plantkeeper"

@@ -2,8 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="@color/brown_light">
+    android:background="@color/brown_light"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/app_name_text_view"
@@ -30,26 +30,32 @@
             android:fontFamily="@font/poppins_regular"
             android:text="@string/name_colon"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/new_plant_name_edit_text"
+            app:layout_constraintBottom_toBottomOf="@id/new_plant_edit_text_wrapper"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/new_plant_name_edit_text" />
+            app:layout_constraintTop_toTopOf="@id/new_plant_edit_text_wrapper" />
 
-        <EditText
-            android:id="@+id/new_plant_name_edit_text"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/new_plant_edit_text_wrapper"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/name_label_text_view"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/new_plant_name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="16sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
             android:id="@+id/plant_image_view"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:src="@mipmap/sample_plant"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,16 +72,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/plant_image_view" />
 
-        <EditText
-            android:id="@+id/watering_frequency_edit_text"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/watering_frequency_edit_text_wrapper"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:inputType="number"
-            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@id/water_every_label_text_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/water_every_label_text_view" />
+            app:layout_constraintTop_toBottomOf="@+id/water_every_label_text_view">
+
+            <EditText
+                android:id="@+id/watering_frequency_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="number"
+                android:paddingBottom="0dp"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -84,8 +98,8 @@
             android:fontFamily="@font/poppins_regular"
             android:text="@string/days"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/watering_frequency_edit_text"
-            app:layout_constraintStart_toEndOf="@id/watering_frequency_edit_text" />
+            app:layout_constraintBottom_toBottomOf="@id/watering_frequency_edit_text_wrapper"
+            app:layout_constraintStart_toEndOf="@id/watering_frequency_edit_text_wrapper" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

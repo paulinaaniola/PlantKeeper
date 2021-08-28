@@ -5,4 +5,5 @@
     <string name="name_colon">Name:</string>
     <string name="water_every_colon">Water every:</string>
     <string name="days">days</string>
+    <string name="missing_info">Missing info</string>
 </resources>

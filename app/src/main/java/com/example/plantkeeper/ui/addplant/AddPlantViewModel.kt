@@ -11,7 +11,7 @@ class AddPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) : Vi
     var plantName: String = ""
     var wateringFrequency: Int? = null
 
-    fun insertPlant() {
+    fun insertPlant(onPlantInsertedAction: () -> Unit) {
         wateringFrequency?.let { wateringFrequency ->
             viewModelScope.launch {
                 plantsRepositoryImpl.insertPlant(
@@ -20,6 +20,8 @@ class AddPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) : Vi
                         wateringFrequency = wateringFrequency
                     )
                 )
+            }.invokeOnCompletion {
+                onPlantInsertedAction()
             }
         }
     }

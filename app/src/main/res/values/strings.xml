@@ -6,4 +6,7 @@
     <string name="water_every_colon">Water every:</string>
     <string name="days">days</string>
     <string name="missing_info">Missing info</string>
+    <string name="watering_required">Watering required</string>
+    <string name="nearest_watering">Nearest watering</string>
+    <string name="feeling_good">Feeling good</string>
 </resources>

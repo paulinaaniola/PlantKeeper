@@ -16,11 +16,12 @@ class PlantsViewModel(
     private val plantsViewStateMapper: PlantsViewStateMapper
 ) : ViewModel() {
 
-    val plantsList: LiveData<List<PlantViewState>> =
+    val plantsList: LiveData<List<PlantListItem>> =
         plantsRepository
             .getAllPlants()
             .map {
-                plantsViewStateMapper.mapPlantsToViewState(it)
+                plantsViewStateMapper
+                    .mapPlantsToListItems(it)
             }.asLiveData()
 
 }

@@ -37,7 +37,7 @@ class AddPlantFragment : Fragment() {
             binding.newPlantEditTextWrapper.error = null
         }
         binding.wateringFrequencyEditText.addOnTextChanged {
-            addPlantViewModel.wateringFrequency = it.toInt()
+            addPlantViewModel.wateringFrequency = if (it.isNotEmpty()) it.toInt() else null
             binding.wateringFrequencyEditTextWrapper.error = null
         }
     }

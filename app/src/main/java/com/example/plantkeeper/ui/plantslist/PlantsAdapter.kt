@@ -50,6 +50,20 @@ class PlantsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         plantsViewHolder.wateringFrequencyTextView.text = plant.wateringLabel
         plantsViewHolder.wateringCanImageView.visibility =
             if (plant.wateringState == PlantWateringState.WATERING_REQUIRED) View.VISIBLE else View.GONE
+        setupPlantItemBackgroundColor(plantsViewHolder, plant.wateringState)
+    }
+
+    private fun setupPlantItemBackgroundColor(
+        plantsViewHolder: PlantViewHolder,
+        wateringState: PlantWateringState
+    ) {
+        val background = when (wateringState) {
+            PlantWateringState.WATERING_REQUIRED -> context?.getDrawable(R.drawable.rounded_frame_pink)
+            PlantWateringState.NEAREST_WATERING -> context?.getDrawable(R.drawable.rounded_frame_beige)
+            else -> context?.getDrawable(R.drawable.rounded_frame_green)
+        }
+        plantsViewHolder.backgroundLayout.background = background
+
     }
 
     private fun setupLabelItem(labelViewHolder: LabelViewHolder, item: PlantListItem) {
@@ -65,6 +79,7 @@ class PlantsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class PlantViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val plantNameTextView: TextView = view.findViewById(R.id.plant_name_text_view)
+        val backgroundLayout: View = view.findViewById(R.id.background_layout)
         val wateringFrequencyTextView: TextView =
             view.findViewById(R.id.watering_frequency_text_view)
         val wateringCanImageView: ImageView = view.findViewById(R.id.watering_can_imageView)

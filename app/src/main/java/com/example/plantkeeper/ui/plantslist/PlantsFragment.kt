@@ -10,12 +10,13 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantkeeper.R
-import kotlinx.android.synthetic.main.activity_navigation.*
-import kotlinx.android.synthetic.main.fragment_plants.*
+import com.example.plantkeeper.databinding.FragmentPlantsBinding
+import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlantsFragment : Fragment() {
 
+    private lateinit var binding: FragmentPlantsBinding
     private val plantsViewModel by viewModel<PlantsViewModel>()
     private val plantsAdapter = PlantsAdapter()
 
@@ -23,21 +24,17 @@ class PlantsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_plants, container, false)
-    }
-
-    override fun onStart() {
+    ): View {
+        binding = FragmentPlantsBinding.inflate(inflater, container, false)
         setupRecyclerView()
         setupAddPlantFab()
         configureDataObservers()
-        super.onStart()
+        return binding.root
     }
 
     private fun setupRecyclerView() {
-        plants_recycler_view.layoutManager = LinearLayoutManager(context)
-        plants_recycler_view.adapter = plantsAdapter
+        binding.plantsRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.plantsRecyclerView.adapter = plantsAdapter
     }
 
     private fun configureDataObservers() {
@@ -49,7 +46,7 @@ class PlantsFragment : Fragment() {
     }
 
     private fun setupAddPlantFab() {
-        add_plant_fab_menu_image_view.setOnClickListener {
+        binding.addPlantFabMenuImageView.setOnClickListener {
             findNavController().navigate(R.id.navigation_add_plant)
         }
     }

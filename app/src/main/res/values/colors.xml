@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorPrimary">#6200EE</color>
+  <color name="colorPrimary">#DED6D1</color>
   <color name="colorPrimaryDark">#D1B6A5</color>
   <color name="colorAccent">#482900</color>
   <color name="pink">#F7DCDF</color>
   <color name="blue">#CAF0F8</color>
-  <color name="brown_light">#DED6D1</color>
-  <color name="brown_medium">#D1B6A5</color>
-  <color name="brown_dark">#482900</color>
+  <color name="brownLight">#DED6D1</color>
+  <color name="brownMedium">#D1B6A5</color>
+  <color name="brownDark">#482900</color>
   <color name="beige">#F0F0F0</color>
 </resources>

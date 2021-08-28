@@ -1,3 +1,11 @@
 package com.example.plantkeeper.domain
 
-data class Plant(val name: String, val wateringFrequency: String)
+import org.threeten.bp.Duration
+import org.threeten.bp.LocalDate
+
+data class Plant(
+    val id: Int?,
+    val name: String,
+    val wateringFrequency: Duration,
+    val lastWateringDay: LocalDate
+)

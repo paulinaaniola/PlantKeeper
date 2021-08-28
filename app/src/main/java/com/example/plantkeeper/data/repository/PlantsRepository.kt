@@ -10,5 +10,5 @@ interface PlantsRepository {
 
     fun getAllPlants(): Flow<List<Plant>>
 
-    suspend fun insertPlant(plant: PlantDBO)
+    suspend fun insertPlant(plant: Plant)
 }

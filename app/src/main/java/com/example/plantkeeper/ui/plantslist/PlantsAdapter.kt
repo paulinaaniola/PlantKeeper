@@ -10,7 +10,7 @@ import com.example.plantkeeper.domain.Plant
 
 class PlantsAdapter : RecyclerView.Adapter<PlantsAdapter.PlantViewHolder>() {
 
-    private val plants = mutableListOf<Plant>()
+    private val plants = mutableListOf<PlantViewState>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_plant, parent, false)
@@ -24,10 +24,10 @@ class PlantsAdapter : RecyclerView.Adapter<PlantsAdapter.PlantViewHolder>() {
     override fun onBindViewHolder(holder: PlantViewHolder, position: Int) {
         val plant = plants[position]
         holder.plantNameTextView.text = plant.name
-        holder.wateringFrequencyTextView.text = plant.wateringFrequency
+        holder.wateringFrequencyTextView.text = plant.wateringLabel
     }
 
-    fun updatePlants(plants: List<Plant>) {
+    fun updatePlants(plants: List<PlantViewState>) {
         this.plants.clear()
         this.plants.addAll(plants)
         notifyDataSetChanged()

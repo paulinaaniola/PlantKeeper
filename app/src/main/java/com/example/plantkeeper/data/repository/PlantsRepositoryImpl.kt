@@ -3,6 +3,7 @@ package com.example.plantkeeper.data.repository
 import com.example.plantkeeper.data.database.dao.PlantDao
 import com.example.plantkeeper.data.database.entities.PlantDBO
 import com.example.plantkeeper.data.database.mapper.DbMapper
+import com.example.plantkeeper.domain.Plant
 import kotlinx.coroutines.flow.map
 
 class PlantsRepositoryImpl(
@@ -15,7 +16,9 @@ class PlantsRepositoryImpl(
             .getAllPlants()
             .map { plantsMapper.mapDbPlantsToDomain(it) }
 
-    override suspend fun insertPlant(plant: PlantDBO) {
-        plantsDao.insertPlant(plant)
+    override suspend fun insertPlant(plant: Plant) {
+        plantsDao.insertPlant(
+            plantsMapper.mapDomainPlantToDb(plant)
+        )
     }
 }

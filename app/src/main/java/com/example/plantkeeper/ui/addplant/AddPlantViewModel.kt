@@ -4,7 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.plantkeeper.data.database.entities.PlantDBO
 import com.example.plantkeeper.data.repository.PlantsRepository
+import com.example.plantkeeper.domain.Plant
 import kotlinx.coroutines.launch
+import org.threeten.bp.Duration
+import org.threeten.bp.LocalDate
+import org.threeten.bp.ZoneId
 
 class AddPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) : ViewModel() {
 
@@ -15,9 +19,11 @@ class AddPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) : Vi
         wateringFrequency?.let { wateringFrequency ->
             viewModelScope.launch {
                 plantsRepositoryImpl.insertPlant(
-                    PlantDBO(
+                    Plant(
+                        null,
                         name = plantName,
-                        wateringFrequency = wateringFrequency
+                        wateringFrequency = Duration.ofDays(wateringFrequency.toLong()),
+                        lastWateringDay = LocalDate.now()
                     )
                 )
             }.invokeOnCompletion {

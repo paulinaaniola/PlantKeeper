@@ -6,4 +6,6 @@ import com.example.plantkeeper.domain.Plant
 interface DbMapper {
 
     fun mapDbPlantsToDomain(plant: List<PlantDBO>): List<Plant>
+
+    fun mapDomainPlantToDb(plant: Plant): PlantDBO
 }

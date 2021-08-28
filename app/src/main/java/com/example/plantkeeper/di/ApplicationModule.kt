@@ -5,7 +5,10 @@ import com.example.plantkeeper.data.database.mapper.DbMapper
 import com.example.plantkeeper.data.database.mapper.DbMapperImpl
 import com.example.plantkeeper.data.repository.PlantsRepository
 import com.example.plantkeeper.data.repository.PlantsRepositoryImpl
-import com.example.plantkeeper.ui.validation.AddPlantValidator
+import com.example.plantkeeper.ui.plantslist.mapper.PlantsViewStateMapper
+import com.example.plantkeeper.ui.plantslist.mapper.PlantsViewStateMapperImpl
+import com.example.plantkeeper.utils.sorting.PlantSortingUtil
+import com.example.plantkeeper.utils.validation.AddPlantValidator
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -20,6 +23,9 @@ val applicationModule = module {
 
     single { get<PlantsDatabase>().plantsDAO() }
 
-    single<AddPlantValidator> { AddPlantValidator() }
+    single { AddPlantValidator() }
 
+    single { PlantSortingUtil() }
+
+    single<PlantsViewStateMapper> { PlantsViewStateMapperImpl(get()) }
 }

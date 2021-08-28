@@ -1,4 +1,4 @@
-package com.example.plantkeeper.ui.validation
+package com.example.plantkeeper.utils.validation
 
 enum class ValidatedField {
     NAME,

@@ -11,8 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantkeeper.R
 import com.example.plantkeeper.databinding.FragmentPlantsBinding
+import com.example.plantkeeper.utils.sorting.PlantSortingUtil
 import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.java.KoinJavaComponent
 
 class PlantsFragment : Fragment() {
 

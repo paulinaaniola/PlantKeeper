@@ -87,9 +87,11 @@ class PlantsAdapter(val onWateringCanIconClick: (Int) -> Unit) :
         plantsViewHolder: PlantViewHolder,
         photoPath: String
     ) {
-        context?.let { context ->
-            val photoBitmap = PickPhotoImageUtil(context).getBitmapFromPath(photoPath, 90f)
-            plantsViewHolder.plantPhotoLayout.setImageDrawable(photoBitmap)
+        if (photoPath.isNotEmpty()) {
+            context?.let { context ->
+                val photoBitmap = PickPhotoImageUtil(context).getBitmapFromPath(photoPath, 90f)
+                plantsViewHolder.plantPhotoLayout.setImageDrawable(photoBitmap)
+            }
         }
     }
 

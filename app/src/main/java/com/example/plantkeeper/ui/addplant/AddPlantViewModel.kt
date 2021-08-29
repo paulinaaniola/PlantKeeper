@@ -46,22 +46,15 @@ class AddPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) : Vi
                         ""
                     )
                 )
-//                plantsRepositoryImpl.insertPlant(
-//                    Plant(
-//                        null,
-//                        name = "Neares Storczyk",
-//                        wateringFrequency = Duration.ofDays(2),
-//                        lastWateringDay = LocalDate.now().minusDays(1)
-//                    )
-//                )
-//                plantsRepositoryImpl.insertPlant(
-//                    Plant(
-//                        null,
-//                        name = "Need water kwioatek",
-//                        wateringFrequency = Duration.ofDays(4),
-//                        lastWateringDay = LocalDate.now().minusDays(4)
-//                    )
-//                )
+                plantsRepositoryImpl.insertPlant(
+                    Plant(
+                        null,
+                        name = "Need water kwioatek",
+                        wateringFrequency = Duration.ofDays(5),
+                        lastWateringDay = LocalDate.now().minusDays(5),
+                        ""
+                    )
+                )
             }.invokeOnCompletion {
                 onPlantInsertedAction()
             }

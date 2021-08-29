@@ -20,10 +20,14 @@
 
     <ImageView
         android:id="@+id/plant_photo_layout"
-        android:layout_width="65dp"
         android:layout_height="65dp"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="7dp"
         android:elevation="8dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/rounded_frame_beige"
+        android:src="@drawable/ic_leaf_green"
         app:imageCompressQuality="80"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

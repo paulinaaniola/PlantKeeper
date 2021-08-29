@@ -19,12 +19,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/plant_image_view"
+        android:id="@+id/plant_photo_layout"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_marginTop="7dp"
         android:elevation="8dp"
-        android:src="@mipmap/sample_plant"
+        app:imageCompressQuality="80"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,8 +37,8 @@
         android:layout_marginTop="10dp"
         android:textSize="14sp"
         android:elevation="8dp"
-        app:layout_constraintStart_toEndOf="@id/plant_image_view"
-        app:layout_constraintTop_toTopOf="@id/plant_image_view" />
+        app:layout_constraintStart_toEndOf="@id/plant_photo_layout"
+        app:layout_constraintTop_toTopOf="@id/plant_photo_layout" />
 
     <TextView
         android:id="@+id/watering_frequency_text_view"

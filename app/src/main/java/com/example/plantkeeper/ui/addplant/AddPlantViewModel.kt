@@ -14,6 +14,7 @@ class AddPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) : Vi
 
     var plantName: String = ""
     var wateringFrequency: Int? = null
+    var photoPath: String = ""
 
     fun insertPlant(onPlantInsertedAction: () -> Unit) {
         wateringFrequency?.let { wateringFrequency ->
@@ -23,7 +24,26 @@ class AddPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) : Vi
                         null,
                         name = plantName,
                         wateringFrequency = Duration.ofDays(wateringFrequency.toLong()),
-                        lastWateringDay = LocalDate.now()
+                        lastWateringDay = LocalDate.now(),
+                        photoPath
+                    )
+                )
+                plantsRepositoryImpl.insertPlant(
+                    Plant(
+                        null,
+                        name = "Neares Storczyk",
+                        wateringFrequency = Duration.ofDays(4),
+                        lastWateringDay = LocalDate.now().minusDays(4),
+                        ""
+                    )
+                )
+                plantsRepositoryImpl.insertPlant(
+                    Plant(
+                        null,
+                        name = "Need water kwioatek",
+                        wateringFrequency = Duration.ofDays(5),
+                        lastWateringDay = LocalDate.now().minusDays(5),
+                        ""
                     )
                 )
 //                plantsRepositoryImpl.insertPlant(

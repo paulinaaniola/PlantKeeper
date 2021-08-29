@@ -7,7 +7,15 @@ import org.threeten.bp.LocalDate
 class DbMapperImpl : DbMapper {
 
     override fun mapDbPlantsToDomain(plantsDb: List<PlantDBO>): List<Plant> {
-        return plantsDb.map { Plant(it.id, it.name, it.wateringFrequency, it.lastWateringDay) }
+        return plantsDb.map {
+            Plant(
+                it.id,
+                it.name,
+                it.wateringFrequency,
+                it.lastWateringDay,
+                it.picturePath
+            )
+        }
     }
 
     override fun mapDomainPlantToDb(plant: Plant): PlantDBO {
@@ -15,7 +23,8 @@ class DbMapperImpl : DbMapper {
             id = plant.id,
             name = plant.name,
             wateringFrequency = plant.wateringFrequency,
-            lastWateringDay = plant.lastWateringDay
+            lastWateringDay = plant.lastWateringDay,
+            picturePath = plant.picturePath
         )
     }
 }

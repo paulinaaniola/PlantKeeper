@@ -44,7 +44,13 @@ class PlantsViewStateMapperImpl(
             )
             plant.id?.let {
                 plantsViewStates.add(
-                    PlantViewState(plant.id, plant.name, wateringFrequency, wateringState)
+                    PlantViewState(
+                        plant.id,
+                        plant.name,
+                        wateringFrequency,
+                        wateringState,
+                        plant.picturePath
+                    )
                 )
             }
         }

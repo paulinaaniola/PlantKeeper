@@ -11,5 +11,6 @@ data class PlantDBO(
     val id: Int? = null,
     val name: String,
     val wateringFrequency: Duration,
-    val lastWateringDay: LocalDate
+    val lastWateringDay: LocalDate,
+    val picturePath: String
 )

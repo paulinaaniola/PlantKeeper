@@ -1,15 +1,15 @@
 package com.example.plantkeeper.ui.plantslist
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.plantkeeper.data.database.entities.PlantDBO
+import com.example.plantkeeper.data.database.entities.PlantUpdateDBO
 import com.example.plantkeeper.data.repository.PlantsRepository
 import com.example.plantkeeper.domain.Plant
 import com.example.plantkeeper.ui.plantslist.mapper.PlantsViewStateMapper
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
 
 class PlantsViewModel(
     private val plantsRepository: PlantsRepository,
@@ -24,4 +24,9 @@ class PlantsViewModel(
                     .mapPlantsToListItems(it)
             }.asLiveData()
 
+    fun updatePlantAsAlreadyWatered(plantId: Int) {
+        viewModelScope.launch {
+            plantsRepository.updatePlantAsAlreadyWatered(PlantUpdateDBO(plantId, LocalDate.now()))
+        }
+    }
 }

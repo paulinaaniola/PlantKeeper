@@ -8,14 +8,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plantkeeper.R
+import com.jakubaniola.pickphotoview.PickPhotoImageUtil
+import com.jakubaniola.pickphotoview.PickPhotoLayout
 
-class PlantsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PlantsAdapter(val onWateringCanIconClick: (Int) -> Unit) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<PlantListItem>()
     private var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        context = parent.context
+        if (context == null) context = parent.context
         return if (viewType == PlantListItemType.PLANT.ordinal) {
             val view =
                 LayoutInflater.from(parent.context).inflate(R.layout.item_plant, parent, false)
@@ -48,9 +51,24 @@ class PlantsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val plant = (item as PlantItem).plant
         plantsViewHolder.plantNameTextView.text = plant.name
         plantsViewHolder.wateringFrequencyTextView.text = plant.wateringLabel
-        plantsViewHolder.wateringCanImageView.visibility =
-            if (plant.wateringState == PlantWateringState.WATERING_REQUIRED) View.VISIBLE else View.GONE
+        setupItemWateringCan(plantsViewHolder, plant)
         setupPlantItemBackgroundColor(plantsViewHolder, plant.wateringState)
+        setupPlantPhoto(plantsViewHolder, plant.picturePath)
+    }
+
+    private fun setupItemWateringCan(
+        plantsViewHolder: PlantViewHolder,
+        plant: PlantViewState
+    ) {
+        if (plant.wateringState == PlantWateringState.WATERING_REQUIRED) {
+            plantsViewHolder.wateringCanImageView.visibility = View.VISIBLE
+            plantsViewHolder.wateringCanImageView.setOnClickListener {
+                onWateringCanIconClick(plant.id)
+            }
+        } else {
+            plantsViewHolder.wateringCanImageView.visibility = View.GONE
+            plantsViewHolder.wateringCanImageView.setOnClickListener { }
+        }
     }
 
     private fun setupPlantItemBackgroundColor(
@@ -63,7 +81,16 @@ class PlantsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             else -> context?.getDrawable(R.drawable.rounded_frame_green)
         }
         plantsViewHolder.backgroundLayout.background = background
+    }
 
+    private fun setupPlantPhoto(
+        plantsViewHolder: PlantViewHolder,
+        photoPath: String
+    ) {
+        context?.let { context ->
+            val photoBitmap = PickPhotoImageUtil(context).getBitmapFromPath(photoPath, 90f)
+            plantsViewHolder.plantPhotoLayout.setImageDrawable(photoBitmap)
+        }
     }
 
     private fun setupLabelItem(labelViewHolder: LabelViewHolder, item: PlantListItem) {
@@ -83,6 +110,7 @@ class PlantsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val wateringFrequencyTextView: TextView =
             view.findViewById(R.id.watering_frequency_text_view)
         val wateringCanImageView: ImageView = view.findViewById(R.id.watering_can_imageView)
+        val plantPhotoLayout: ImageView = view.findViewById(R.id.plant_photo_layout)
     }
 
     class LabelViewHolder(view: View) : RecyclerView.ViewHolder(view) {

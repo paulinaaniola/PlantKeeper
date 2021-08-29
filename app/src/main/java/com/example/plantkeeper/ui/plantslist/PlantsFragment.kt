@@ -11,8 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.plantkeeper.R
 import com.example.plantkeeper.databinding.FragmentPlantsBinding
+import com.example.plantkeeper.ui.plantslist.mapper.PlantsViewStateMapper
 import com.example.plantkeeper.utils.sorting.PlantSortingUtil
 import org.koin.android.ext.android.bind
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.java.KoinJavaComponent
 
@@ -20,7 +22,7 @@ class PlantsFragment : Fragment() {
 
     private lateinit var binding: FragmentPlantsBinding
     private val plantsViewModel by viewModel<PlantsViewModel>()
-    private val plantsAdapter = PlantsAdapter()
+    private val plantsAdapter = PlantsAdapter { onWaterringCanImageViewClick(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,5 +53,9 @@ class PlantsFragment : Fragment() {
         binding.addPlantFabMenuImageView.setOnClickListener {
             findNavController().navigate(R.id.navigation_add_plant)
         }
+    }
+
+    private fun onWaterringCanImageViewClick(plantId: Int) {
+        plantsViewModel.updatePlantAsAlreadyWatered(plantId)
     }
 }

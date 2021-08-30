@@ -1,4 +1,4 @@
-package com.example.plantkeeper.ui.addplant
+package com.example.plantkeeper.ui.addeditplant
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,22 +8,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.plantkeeper.R
-import com.example.plantkeeper.databinding.FragmentAddPlantBinding
 import com.example.plantkeeper.utils.validation.AddPlantValidator
 import com.example.plantkeeper.utils.validation.ValidatedField
-import com.example.plantkeeper.utils.addOnTextChanged
 import com.jakubaniola.pickphotoview.PickPhotoActions
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.widget.ArrayAdapter
-
 import android.widget.AdapterView
+import com.example.plantkeeper.databinding.FragmentAddEditPlantBinding
+import com.example.plantkeeper.utils.addOnTextChanged
 
+class AddEditPlantFragment : Fragment(), PickPhotoActions {
 
-class AddPlantFragment : Fragment(), PickPhotoActions {
-
-    private lateinit var binding: FragmentAddPlantBinding
-    private val addPlantViewModel by viewModel<AddPlantViewModel>()
+    private lateinit var binding: FragmentAddEditPlantBinding
+    private val addPlantViewModel by viewModel<AddEditPlantViewModel>()
     private val addPlantValidator by inject<AddPlantValidator>()
 
     override fun onCreateView(
@@ -31,7 +29,7 @@ class AddPlantFragment : Fragment(), PickPhotoActions {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAddPlantBinding.inflate(inflater, container, false)
+        binding = FragmentAddEditPlantBinding.inflate(inflater, container, false)
         setupInputsChangeListeners()
         setupSavePlantFab()
         setupWateringFrequencyUnitsSpinner()

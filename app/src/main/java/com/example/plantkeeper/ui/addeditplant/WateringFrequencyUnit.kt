@@ -1,4 +1,4 @@
-package com.example.plantkeeper.ui.addplant
+package com.example.plantkeeper.ui.addeditplant
 
 enum class WateringFrequencyUnit(val text: String) {
     DAYS("Days"),

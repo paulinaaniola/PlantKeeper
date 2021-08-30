@@ -2,11 +2,8 @@ package com.example.plantkeeper.ui.plantslist.mapper
 
 import com.example.plantkeeper.R
 import com.example.plantkeeper.domain.Plant
-import com.example.plantkeeper.ui.addplant.WateringFrequencyUnit
 import com.example.plantkeeper.ui.plantslist.*
 import com.example.plantkeeper.utils.sorting.PlantSortingUtil
-import org.koin.java.KoinJavaComponent.inject
-import org.koin.android.ext.android.inject
 import org.threeten.bp.Duration
 
 class PlantsViewStateMapperImpl(

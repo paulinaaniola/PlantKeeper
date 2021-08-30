@@ -11,9 +11,9 @@
         tools:layout="@layout/fragment_plants" />
 
     <fragment
-        android:id="@+id/navigation_add_plant"
-        android:name="com.example.plantkeeper.ui.addplant.AddPlantFragment"
-        tools:layout="@layout/fragment_add_plant">
+        android:id="@+id/navigation_add_edit_plant"
+        android:name="com.example.plantkeeper.ui.addeditplant.AddEditPlantFragment"
+        tools:layout="@layout/fragment_add_edit_plant">
         <action
             android:id="@+id/action_navigate_back_to_plants"
             app:destination="@id/navigation_plants_list"

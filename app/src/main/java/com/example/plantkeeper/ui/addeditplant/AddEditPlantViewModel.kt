@@ -1,5 +1,6 @@
-package com.example.plantkeeper.ui.addplant
+package com.example.plantkeeper.ui.addeditplant
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.plantkeeper.data.repository.PlantsRepository
@@ -8,12 +9,14 @@ import kotlinx.coroutines.launch
 import org.threeten.bp.Duration
 import org.threeten.bp.LocalDate
 
-class AddPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) : ViewModel() {
+class AddEditPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) : ViewModel() {
 
     var plantName: String = ""
     var wateringFrequency: Int? = null
     var photoPath: String = ""
     var wateringFrequencyUnit: WateringFrequencyUnit? = null
+
+    var plantToEdit: LiveData<Plant>? = null
 
     fun insertPlant(onPlantInsertedAction: () -> Unit) {
         wateringFrequency?.let { wateringFrequency ->

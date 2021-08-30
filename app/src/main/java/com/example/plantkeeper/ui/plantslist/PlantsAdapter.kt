@@ -11,7 +11,7 @@ import com.example.plantkeeper.R
 import com.jakubaniola.pickphotoview.PickPhotoImageUtil
 import com.jakubaniola.pickphotoview.PickPhotoLayout
 
-class PlantsAdapter(val onWateringCanIconClick: (Int) -> Unit) :
+class PlantsAdapter(val itemClickAction: PlantItemClickActions) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<PlantListItem>()
@@ -49,15 +49,34 @@ class PlantsAdapter(val onWateringCanIconClick: (Int) -> Unit) :
 
     private fun setupPlantItem(plantsViewHolder: PlantViewHolder, item: PlantListItem) {
         val plant = (item as PlantItem).plant
+        setupPlantTexts(plantsViewHolder, plant)
+        setupPlantBackgroundClick(plantsViewHolder, plant)
+        setupItemWateringCan(plantsViewHolder, plant)
+        setupPlantItemBackgroundColor(plantsViewHolder, plant.wateringState)
+        setupPlantPhoto(plantsViewHolder, plant.picturePath)
+    }
+
+    private fun setupPlantTexts(
+        plantsViewHolder: PlantViewHolder,
+        plant: PlantViewState,
+    ) {
         val watering = plant.wateringFrequency
         plantsViewHolder.plantNameTextView.text = plant.name
         plantsViewHolder.wateringFrequencyTextView.text = context?.resources?.getString(
             watering.wateringFrequencyLabelResource,
             watering.wateringFrequencyValue
         )
-        setupItemWateringCan(plantsViewHolder, plant)
-        setupPlantItemBackgroundColor(plantsViewHolder, plant.wateringState)
-        setupPlantPhoto(plantsViewHolder, plant.picturePath)
+    }
+
+    private fun setupPlantBackgroundClick(
+        plantsViewHolder: PlantViewHolder,
+        plant: PlantViewState
+    ) {
+        plantsViewHolder.backgroundLayout.setOnClickListener {
+            itemClickAction.onPlantItemClick(
+                plant.id
+            )
+        }
     }
 
     private fun setupItemWateringCan(
@@ -67,7 +86,7 @@ class PlantsAdapter(val onWateringCanIconClick: (Int) -> Unit) :
         if (plant.wateringState == PlantWateringState.WATERING_REQUIRED) {
             plantsViewHolder.wateringCanImageView.visibility = View.VISIBLE
             plantsViewHolder.wateringCanImageView.setOnClickListener {
-                onWateringCanIconClick(plant.id)
+                itemClickAction.onWateringCanIconClick(plant.id)
             }
         } else {
             plantsViewHolder.wateringCanImageView.visibility = View.GONE

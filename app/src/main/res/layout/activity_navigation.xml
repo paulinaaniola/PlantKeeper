@@ -4,7 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/brownLight"
     tools:context=".ui.navigation.NavigationActivity">
+
+    <TextView
+        android:id="@+id/app_name_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@color/brownLight"
+        android:elevation="5dp"
+        android:fontFamily="@font/yellowtail_regular"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textSize="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <fragment
         android:id="@+id/navigation_fragment"
@@ -15,6 +31,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_name_text_view"
         app:navGraph="@navigation/app_navigation" />
 </androidx.constraintlayout.widget.ConstraintLayout>

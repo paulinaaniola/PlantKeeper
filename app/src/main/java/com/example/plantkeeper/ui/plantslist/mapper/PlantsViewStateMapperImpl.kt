@@ -1,10 +1,13 @@
 package com.example.plantkeeper.ui.plantslist.mapper
 
+import com.example.plantkeeper.R
 import com.example.plantkeeper.domain.Plant
+import com.example.plantkeeper.ui.addplant.WateringFrequencyUnit
 import com.example.plantkeeper.ui.plantslist.*
 import com.example.plantkeeper.utils.sorting.PlantSortingUtil
 import org.koin.java.KoinJavaComponent.inject
 import org.koin.android.ext.android.inject
+import org.threeten.bp.Duration
 
 class PlantsViewStateMapperImpl(
     private val plantSortingUtil: PlantSortingUtil
@@ -37,7 +40,7 @@ class PlantsViewStateMapperImpl(
     private fun mapPlantsToViewState(plants: List<Plant>): List<PlantViewState> {
         val plantsViewStates = mutableListOf<PlantViewState>()
         plants.forEach { plant ->
-            val wateringFrequency = "Watering: every ${plant.wateringFrequency.toDays()} days"
+            val wateringFrequency = getWateringFrequencyLabel(plant.wateringFrequency)
             val wateringState = plantSortingUtil.getPlantWateringState(
                 plant.wateringFrequency,
                 plant.lastWateringDay
@@ -55,5 +58,16 @@ class PlantsViewStateMapperImpl(
             }
         }
         return plantsViewStates
+    }
+
+    private fun getWateringFrequencyLabel(wateringFrequency: Duration): WateringFrequency {
+        val numberOfDays = wateringFrequency.toDays()
+        val shouldUseWeeks = Math.floorMod(numberOfDays, 7) == 0
+        val numberOfWeeks = numberOfDays / 7
+        return if (shouldUseWeeks) {
+            WateringFrequency(numberOfWeeks.toInt(), R.string.watering_every_weeks)
+        } else {
+            WateringFrequency(numberOfDays.toInt(), R.string.watering_every_days)
+        }
     }
 }

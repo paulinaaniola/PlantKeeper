@@ -17,8 +17,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.widget.ArrayAdapter
 
-import android.widget.Spinner
-import android.widget.SpinnerAdapter
+import android.widget.AdapterView
 
 
 class AddPlantFragment : Fragment(), PickPhotoActions {
@@ -35,6 +34,8 @@ class AddPlantFragment : Fragment(), PickPhotoActions {
         binding = FragmentAddPlantBinding.inflate(inflater, container, false)
         setupInputsChangeListeners()
         setupSavePlantFab()
+        setupWateringFrequencyUnitsSpinner()
+        setupSpinnerValuesChangeListener()
         binding.pickPhotoLayout.setPickPhotoFragment(this)
         return binding.root
     }
@@ -86,6 +87,35 @@ class AddPlantFragment : Fragment(), PickPhotoActions {
         }
         if (missingInfo.contains(ValidatedField.WATERING_FREQUENCY)) {
             binding.wateringFrequencyEditTextWrapper.error = getString(R.string.missing_info)
+        }
+    }
+
+    private fun setupSpinnerValuesChangeListener() {
+        binding.wateringSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    pos: Int,
+                    id: Long
+                ) {
+                    val item = parent.getItemAtPosition(pos) as String
+                    addPlantViewModel.wateringFrequencyUnit = WateringFrequencyUnit.fromString(item)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+    }
+
+    private fun setupWateringFrequencyUnitsSpinner() {
+        val spinnerValues = WateringFrequencyUnit.values().map { it.text }
+        context?.let { context ->
+            val spinnerArrayAdapter: ArrayAdapter<String> = ArrayAdapter(
+                context, android.R.layout.simple_spinner_item,
+                spinnerValues
+            )
+            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.wateringSpinner.adapter = spinnerArrayAdapter
         }
     }
 }

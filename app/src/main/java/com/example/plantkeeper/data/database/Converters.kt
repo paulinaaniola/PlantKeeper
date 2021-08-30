@@ -17,11 +17,11 @@ class Converters {
 
     @TypeConverter
     fun toDuration(value: Long): Duration {
-        return Duration.ofDays(value)
+        return Duration.ofMillis(value)
     }
 
     @TypeConverter
     fun fromDuration(duration: Duration): Long {
-        return duration.toDays()
+        return duration.toMillis()
     }
 }

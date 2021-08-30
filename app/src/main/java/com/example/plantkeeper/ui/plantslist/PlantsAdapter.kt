@@ -49,8 +49,12 @@ class PlantsAdapter(val onWateringCanIconClick: (Int) -> Unit) :
 
     private fun setupPlantItem(plantsViewHolder: PlantViewHolder, item: PlantListItem) {
         val plant = (item as PlantItem).plant
+        val watering = plant.wateringFrequency
         plantsViewHolder.plantNameTextView.text = plant.name
-        plantsViewHolder.wateringFrequencyTextView.text = plant.wateringLabel
+        plantsViewHolder.wateringFrequencyTextView.text = context?.resources?.getString(
+            watering.wateringFrequencyLabelResource,
+            watering.wateringFrequencyValue
+        )
         setupItemWateringCan(plantsViewHolder, plant)
         setupPlantItemBackgroundColor(plantsViewHolder, plant.wateringState)
         setupPlantPhoto(plantsViewHolder, plant.picturePath)

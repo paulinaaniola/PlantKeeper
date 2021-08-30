@@ -9,4 +9,8 @@
     <string name="watering_required">Watering required</string>
     <string name="nearest_watering">Nearest watering</string>
     <string name="feeling_good">Feeling good</string>
+    <string name="Days">Days</string>
+    <string name="weeks">Weeks</string>
+    <string name="watering_every_days">Watering every: %1$d days</string>
+    <string name="watering_every_weeks">Watering every: %1$d weeks</string>
 </resources>

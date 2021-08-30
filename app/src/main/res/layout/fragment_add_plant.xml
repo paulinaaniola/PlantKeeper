@@ -101,13 +101,15 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/watering_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/days"
             android:textSize="16sp"
+            style="@android:style/Widget.Material.Spinner.Underlined"
             app:layout_constraintBottom_toBottomOf="@id/watering_frequency_edit_text_wrapper"
             app:layout_constraintStart_toEndOf="@id/watering_frequency_edit_text_wrapper" />
 

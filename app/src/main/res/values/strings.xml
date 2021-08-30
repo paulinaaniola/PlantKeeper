@@ -13,4 +13,5 @@
     <string name="weeks">Weeks</string>
     <string name="watering_every_days">Watering every: %1$d days</string>
     <string name="watering_every_weeks">Watering every: %1$d weeks</string>
+    <string name="no_plants_added">No plants added, click fab to add the first one!</string>
 </resources>

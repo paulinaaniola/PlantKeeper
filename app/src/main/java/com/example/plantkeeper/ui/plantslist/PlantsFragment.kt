@@ -22,7 +22,7 @@ class PlantsFragment : Fragment() {
 
     private lateinit var binding: FragmentPlantsBinding
     private val plantsViewModel by viewModel<PlantsViewModel>()
-    private val plantsAdapter = PlantsAdapter { onWaterringCanImageViewClick(it) }
+    private val plantsAdapter = PlantsAdapter { onWatteringCanImageViewClick(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +44,7 @@ class PlantsFragment : Fragment() {
     private fun configureDataObservers() {
         plantsViewModel.plantsList.observe(this, Observer { plants ->
             plants?.let {
+                setupNoPlantsTextViewVisibility(plants.isEmpty())
                 plantsAdapter.updatePlants(it)
             }
         })
@@ -55,7 +56,11 @@ class PlantsFragment : Fragment() {
         }
     }
 
-    private fun onWaterringCanImageViewClick(plantId: Int) {
+    private fun onWatteringCanImageViewClick(plantId: Int) {
         plantsViewModel.updatePlantAsAlreadyWatered(plantId)
+    }
+
+    private fun setupNoPlantsTextViewVisibility(isPlantsListEmpty: Boolean) {
+        binding.noPlantsTextView.visibility = if (isPlantsListEmpty) View.VISIBLE else View.GONE
     }
 }

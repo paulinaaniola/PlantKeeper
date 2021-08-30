@@ -14,4 +14,6 @@ interface PlantsRepository {
     suspend fun insertPlant(plant: Plant)
 
     suspend fun updatePlantAsAlreadyWatered(plantUpdate: PlantUpdateDBO)
+
+    suspend fun getPlantToEdit(plantId: Int): Plant
 }

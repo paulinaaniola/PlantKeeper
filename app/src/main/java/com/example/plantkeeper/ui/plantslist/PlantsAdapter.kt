@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plantkeeper.R
 import com.jakubaniola.pickphotoview.PickPhotoImageUtil
-import com.jakubaniola.pickphotoview.PickPhotoLayout
 
 class PlantsAdapter(val itemClickAction: PlantItemClickActions) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -53,7 +52,7 @@ class PlantsAdapter(val itemClickAction: PlantItemClickActions) :
         setupPlantBackgroundClick(plantsViewHolder, plant)
         setupItemWateringCan(plantsViewHolder, plant)
         setupPlantItemBackgroundColor(plantsViewHolder, plant.wateringState)
-        setupPlantPhoto(plantsViewHolder, plant.picturePath)
+        setupPlantPhoto(plantsViewHolder, plant.photoPath)
     }
 
     private fun setupPlantTexts(

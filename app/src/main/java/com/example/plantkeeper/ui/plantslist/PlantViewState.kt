@@ -5,5 +5,5 @@ data class PlantViewState(
     val name: String,
     val wateringFrequency: WateringFrequency,
     val wateringState: PlantWateringState,
-    val picturePath: String
+    val photoPath: String
 )

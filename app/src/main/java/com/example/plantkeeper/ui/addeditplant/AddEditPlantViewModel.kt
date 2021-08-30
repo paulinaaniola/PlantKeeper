@@ -1,6 +1,6 @@
 package com.example.plantkeeper.ui.addeditplant
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.plantkeeper.data.repository.PlantsRepository
@@ -14,9 +14,9 @@ class AddEditPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) 
     var plantName: String = ""
     var wateringFrequency: Int? = null
     var photoPath: String = ""
-    var wateringFrequencyUnit: WateringFrequencyUnit? = null
+    var wateringFrequencyUnit: WateringFrequencyUnit = WateringFrequencyUnit.DAYS
 
-    var plantToEdit: LiveData<Plant>? = null
+    var plantToEdit = MutableLiveData<Plant>()
 
     fun insertPlant(onPlantInsertedAction: () -> Unit) {
         wateringFrequency?.let { wateringFrequency ->
@@ -60,6 +60,16 @@ class AddEditPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) 
             }.invokeOnCompletion {
                 onPlantInsertedAction()
             }
+        }
+    }
+
+    fun getPlantToEdit(plantId: Int) {
+        viewModelScope.launch {
+            val plant = plantsRepositoryImpl.getPlantToEdit(plantId)
+            plantToEdit?.postValue(plant)
+            plantName = plant.name
+            wateringFrequency = plant.wateringFrequency.toDays().toInt()
+            photoPath = plant.photoPath
         }
     }
 

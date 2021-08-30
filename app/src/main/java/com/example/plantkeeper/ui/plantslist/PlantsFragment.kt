@@ -38,7 +38,7 @@ class PlantsFragment : Fragment(), PlantItemClickActions {
     }
 
     private fun configureDataObservers() {
-        plantsViewModel.plantsList.observe(this, Observer { plants ->
+        plantsViewModel.plantsList.observe(viewLifecycleOwner, Observer { plants ->
             plants?.let {
                 setupNoPlantsTextViewVisibility(plants.isEmpty())
                 plantsAdapter.updatePlants(it)

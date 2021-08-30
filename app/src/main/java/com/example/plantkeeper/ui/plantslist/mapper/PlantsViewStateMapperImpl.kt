@@ -49,7 +49,7 @@ class PlantsViewStateMapperImpl(
                         plant.name,
                         wateringFrequency,
                         wateringState,
-                        plant.picturePath
+                        plant.photoPath
                     )
                 )
             }

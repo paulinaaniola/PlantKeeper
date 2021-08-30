@@ -19,4 +19,7 @@ interface PlantDao {
 
     @Update(entity = PlantDBO::class)
     suspend fun update(plantUpdate: PlantUpdateDBO)
+
+    @Query("SELECT * FROM plants_table WHERE id is :plantId")
+    suspend fun getPlantToEdit(plantId: Int): PlantDBO
 }

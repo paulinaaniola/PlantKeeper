@@ -8,5 +8,5 @@ data class Plant(
     val name: String,
     val wateringFrequency: Duration,
     val lastWateringDay: LocalDate,
-    val picturePath: String
+    val photoPath: String
 )

@@ -16,12 +16,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.widget.ArrayAdapter
 import android.widget.AdapterView
 import com.example.plantkeeper.databinding.FragmentAddEditPlantBinding
+import com.example.plantkeeper.ui.plantslist.EDIT_PLANT_ID
 import com.example.plantkeeper.utils.addOnTextChanged
+import org.koin.android.ext.android.bind
 
 class AddEditPlantFragment : Fragment(), PickPhotoActions {
 
     private lateinit var binding: FragmentAddEditPlantBinding
-    private val addPlantViewModel by viewModel<AddEditPlantViewModel>()
+    private val addEditPlantViewModel by viewModel<AddEditPlantViewModel>()
     private val addPlantValidator by inject<AddPlantValidator>()
 
     override fun onCreateView(
@@ -30,29 +32,38 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddEditPlantBinding.inflate(inflater, container, false)
+        setupViewModelObservers()
         setupInputsChangeListeners()
         setupSavePlantFab()
         setupWateringFrequencyUnitsSpinner()
         setupSpinnerValuesChangeListener()
+        handleEditPlantNavigation()
         binding.pickPhotoLayout.setPickPhotoFragment(this)
         return binding.root
     }
 
+    private fun handleEditPlantNavigation() {
+        val editPlantId = arguments?.getSerializable(EDIT_PLANT_ID) as? Int
+        editPlantId?.let { plantId ->
+            addEditPlantViewModel.getPlantToEdit(plantId)
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         binding.pickPhotoLayout.onPicturePicked(requestCode, resultCode, data)
-        val picturePaths = binding.pickPhotoLayout.getPicturePaths()
-        if (picturePaths.isNotEmpty()) {
-            addPlantViewModel.photoPath = picturePaths[0]
+        val photoPaths = binding.pickPhotoLayout.getPicturePaths()
+        if (photoPaths.isNotEmpty()) {
+            addEditPlantViewModel.photoPath = photoPaths[0]
         }
     }
 
     private fun setupInputsChangeListeners() {
-        binding.newPlantNameEditText.addOnTextChanged {
-            addPlantViewModel.plantName = it
+        binding.plantNameEditText.addOnTextChanged {
+            addEditPlantViewModel.plantName = it
             binding.newPlantEditTextWrapper.error = null
         }
         binding.wateringFrequencyEditText.addOnTextChanged {
-            addPlantViewModel.wateringFrequency = if (it.isNotEmpty()) it.toInt() else null
+            addEditPlantViewModel.wateringFrequency = if (it.isNotEmpty()) it.toInt() else null
             binding.wateringFrequencyEditTextWrapper.error = null
         }
     }
@@ -63,8 +74,8 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
 
     private fun onAddNewPlantClick() {
         val missingNewPlantInfo = addPlantValidator.getNewPlantMissingInfo(
-            addPlantViewModel.plantName,
-            addPlantViewModel.wateringFrequency
+            addEditPlantViewModel.plantName,
+            addEditPlantViewModel.wateringFrequency
         )
         if (missingNewPlantInfo.isEmpty()) {
             insertNewPlant()
@@ -74,7 +85,7 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
     }
 
     private fun insertNewPlant() {
-        addPlantViewModel.insertPlant {
+        addEditPlantViewModel.insertPlant {
             findNavController().navigate(R.id.action_navigate_back_to_plants)
         }
     }
@@ -98,7 +109,9 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
                     id: Long
                 ) {
                     val item = parent.getItemAtPosition(pos) as String
-                    addPlantViewModel.wateringFrequencyUnit = WateringFrequencyUnit.fromString(item)
+                    WateringFrequencyUnit.fromString(item)?.let { wateringFrequency ->
+                        addEditPlantViewModel.wateringFrequencyUnit = wateringFrequency
+                    }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -115,5 +128,17 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.wateringSpinner.adapter = spinnerArrayAdapter
         }
+    }
+
+    private fun setupViewModelObservers() {
+        addEditPlantViewModel.plantToEdit?.observe(viewLifecycleOwner, { plant ->
+            plant?.let { plant ->
+                binding.plantNameEditText.setText(plant.name)
+                binding.wateringFrequencyEditText.setText(
+                    plant.wateringFrequency.toDays().toString()
+                )
+                binding.pickPhotoLayout.setPictures(listOf(plant.photoPath))
+            }
+        })
     }
 }

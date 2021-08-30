@@ -7,5 +7,7 @@ interface DbMapper {
 
     fun mapDbPlantsToDomain(plant: List<PlantDBO>): List<Plant>
 
+    fun mapDbPlantToDomain(plant: PlantDBO): Plant
+
     fun mapDomainPlantToDb(plant: Plant): PlantDBO
 }

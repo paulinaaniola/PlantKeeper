@@ -2,7 +2,6 @@ package com.example.plantkeeper.data.database.mapper
 
 import com.example.plantkeeper.data.database.entities.PlantDBO
 import com.example.plantkeeper.domain.Plant
-import org.threeten.bp.LocalDate
 
 class DbMapperImpl : DbMapper {
 
@@ -13,9 +12,19 @@ class DbMapperImpl : DbMapper {
                 it.name,
                 it.wateringFrequency,
                 it.lastWateringDay,
-                it.picturePath
+                it.photoPath
             )
         }
+    }
+
+    override fun mapDbPlantToDomain(plantDb: PlantDBO): Plant {
+        return Plant(
+            plantDb.id,
+            plantDb.name,
+            plantDb.wateringFrequency,
+            plantDb.lastWateringDay,
+            plantDb.photoPath
+        )
     }
 
     override fun mapDomainPlantToDb(plant: Plant): PlantDBO {
@@ -24,7 +33,7 @@ class DbMapperImpl : DbMapper {
             name = plant.name,
             wateringFrequency = plant.wateringFrequency,
             lastWateringDay = plant.lastWateringDay,
-            picturePath = plant.picturePath
+            photoPath = plant.photoPath
         )
     }
 }

@@ -80,7 +80,7 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
 
     private fun onSaveFabClick() {
         addEditPlantViewModel.onSaveButtonAction()
-        findNavController().navigate(R.id.action_navigate_back_to_plants)
+        findNavController().popBackStack()
     }
 
     private fun setErrors(missingInfo: List<ValidatedField>) {
@@ -170,7 +170,7 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
         }
         binding.deleteAlertDialog.deleteTextView.setOnClickListener {
             addEditPlantViewModel.deletePlant()
-            findNavController().navigate(R.id.action_navigate_back_to_plants)
+            findNavController().popBackStack()
         }
     }
 

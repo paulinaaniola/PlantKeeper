@@ -5,124 +5,133 @@
     android:layout_height="match_parent"
     android:background="@color/brownLight">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
+        android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="40dp"
         android:background="@drawable/rounded_frame_beige"
-        android:elevation="5dp"
-        android:padding="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:elevation="5dp">
 
-        <TextView
-            android:id="@+id/dialog_title_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:paddingBottom="10dp"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:fillViewport="true">
 
-        <ImageView
-            android:id="@+id/delete_image_view"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_delete"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/dialog_title_text_view"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/name_label_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/name_colon"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/new_plant_edit_text_wrapper"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dialog_title_text_view" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/new_plant_edit_text_wrapper"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/name_label_text_view"
-            app:layout_constraintTop_toBottomOf="@id/dialog_title_text_view">
-
-            <EditText
-                android:id="@+id/plant_name_edit_text"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:textSize="16sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="0dp"
+                android:elevation="5dp"
+                android:padding="24dp">
 
-        <com.jakubaniola.pickphotoview.PickPhotoLayout
-            android:id="@+id/pick_photo_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            app:imageCompressQuality="80"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name_label_text_view"
-            app:mode="ENABLE_ADD_ONE" />
+                <TextView
+                    android:id="@+id/dialog_title_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:paddingBottom="10dp"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/water_every_label_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/water_every_colon"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/pick_photo_layout" />
+                <ImageView
+                    android:id="@+id/delete_image_view"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/ic_delete"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/dialog_title_text_view"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/watering_frequency_edit_text_wrapper"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@id/water_every_label_text_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/water_every_label_text_view">
+                <TextView
+                    android:id="@+id/name_label_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/name_colon"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/new_plant_edit_text_wrapper"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dialog_title_text_view" />
 
-            <EditText
-                android:id="@+id/watering_frequency_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:inputType="number"
-                android:textSize="16sp" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/new_plant_edit_text_wrapper"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/name_label_text_view"
+                    app:layout_constraintTop_toBottomOf="@id/dialog_title_text_view">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                    <EditText
+                        android:id="@+id/plant_name_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/watering_spinner"
-            style="@android:style/Widget.Material.Spinner.Underlined"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/days"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/watering_frequency_edit_text_wrapper"
-            app:layout_constraintStart_toEndOf="@id/watering_frequency_edit_text_wrapper" />
+                <com.jakubaniola.pickphotoview.PickPhotoLayout
+                    android:id="@+id/pick_photo_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    app:imageCompressQuality="80"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/name_label_text_view"
+                    app:mode="ENABLE_ADD_ONE" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/water_every_label_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/water_every_colon"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/pick_photo_layout" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/watering_frequency_edit_text_wrapper"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@id/water_every_label_text_view"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/water_every_label_text_view">
+
+                    <EditText
+                        android:id="@+id/watering_frequency_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="number"
+                        android:textSize="16sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/watering_spinner"
+                    style="@android:style/Widget.Material.Spinner.Underlined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/days"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/watering_frequency_edit_text_wrapper"
+                    app:layout_constraintStart_toEndOf="@id/watering_frequency_edit_text_wrapper" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/save_plant_fab_menu_image_view"

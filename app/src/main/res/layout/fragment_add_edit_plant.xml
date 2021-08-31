@@ -22,24 +22,37 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/dialog_title_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingBottom="10dp"
+            android:text="@string/name_colon"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/name_label_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/name_colon"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/new_plant_edit_text_wrapper"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/new_plant_edit_text_wrapper" />
+            app:layout_constraintTop_toBottomOf="@id/dialog_title_text_view" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/new_plant_edit_text_wrapper"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/name_label_text_view"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialog_title_text_view">
 
             <EditText
                 android:id="@+id/plant_name_edit_text"
@@ -91,13 +104,13 @@
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/watering_spinner"
+            style="@android:style/Widget.Material.Spinner.Underlined"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/days"
             android:textSize="16sp"
-            style="@android:style/Widget.Material.Spinner.Underlined"
             app:layout_constraintBottom_toBottomOf="@id/watering_frequency_edit_text_wrapper"
             app:layout_constraintStart_toEndOf="@id/watering_frequency_edit_text_wrapper" />
 

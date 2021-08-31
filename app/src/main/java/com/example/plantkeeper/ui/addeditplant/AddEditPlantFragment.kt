@@ -36,18 +36,25 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
         setupSavePlantFab()
         setupWateringFrequencyUnitsSpinner()
         setupSpinnerValuesChangeListener()
-        handleEditPlantNavigation()
+        handleViewState()
         binding.pickPhotoLayout.setPickPhotoFragment(this)
         return binding.root
     }
 
-    private fun handleEditPlantNavigation() {
+    private fun handleViewState() {
         val editPlantId = arguments?.getSerializable(EDIT_PLANT_ID) as? Int
         val viewState = if (editPlantId != null) ViewState.EDIT else ViewState.ADD
         editPlantId?.let { plantId ->
             addEditPlantViewModel.getPlantToEdit(plantId)
         }
+        setupDialogTitle(viewState)
         addEditPlantViewModel.viewState = viewState
+    }
+
+    private fun setupDialogTitle(viewState: ViewState) {
+        binding.dialogTitleTextView.text =
+            if (viewState == ViewState.ADD) getString(R.string.add_new_plant)
+            else getString(R.string.edit_plant)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

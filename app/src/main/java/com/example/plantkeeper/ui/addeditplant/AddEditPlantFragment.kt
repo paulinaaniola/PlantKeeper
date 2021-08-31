@@ -133,7 +133,7 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
         binding.calendarImageView.setOnClickListener {
             binding.calendarDialog.calendarLayout.visibility = View.VISIBLE
             binding.calendarDialog.calendarView.setOnDateChangeListener { _, year, month, day ->
-                onCalendarDateChosen(LocalDate.of(year, month, day))
+                onCalendarDateChosen(LocalDate.of(year, month + 1, day))
             }
         }
     }

@@ -15,6 +15,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.widget.ArrayAdapter
 import android.widget.AdapterView
+import androidx.activity.OnBackPressedCallback
 import com.example.plantkeeper.databinding.FragmentAddEditPlantBinding
 import com.example.plantkeeper.ui.plantslist.EDIT_PLANT_ID
 import com.example.plantkeeper.utils.addOnTextChanged
@@ -37,24 +38,9 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
         setupWateringFrequencyUnitsSpinner()
         setupSpinnerValuesChangeListener()
         handleViewState()
+        setupOnBackPressed()
         binding.pickPhotoLayout.setPickPhotoFragment(this)
         return binding.root
-    }
-
-    private fun handleViewState() {
-        val editPlantId = arguments?.getSerializable(EDIT_PLANT_ID) as? Int
-        val viewState = if (editPlantId != null) ViewState.EDIT else ViewState.ADD
-        editPlantId?.let { plantId ->
-            addEditPlantViewModel.getPlantToEdit(plantId)
-        }
-        setupDialogTitle(viewState)
-        addEditPlantViewModel.viewState = viewState
-    }
-
-    private fun setupDialogTitle(viewState: ViewState) {
-        binding.dialogTitleTextView.text =
-            if (viewState == ViewState.ADD) getString(R.string.add_new_plant)
-            else getString(R.string.edit_plant)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -147,5 +133,60 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
                 binding.pickPhotoLayout.setPictures(listOf(plant.photoPath))
             }
         })
+    }
+
+    private fun handleViewState() {
+        val editPlantId = arguments?.getSerializable(EDIT_PLANT_ID) as? Int
+        val viewState = if (editPlantId != null) ViewState.EDIT else ViewState.ADD
+        editPlantId?.let { plantId ->
+            addEditPlantViewModel.getPlantToEdit(plantId)
+        }
+        setupDialogTitle(viewState)
+        setupDeleteImageView(viewState)
+        addEditPlantViewModel.viewState = viewState
+    }
+
+    private fun setupDialogTitle(viewState: ViewState) {
+        binding.dialogTitleTextView.text =
+            if (viewState == ViewState.ADD) getString(R.string.add_new_plant)
+            else getString(R.string.edit_plant)
+    }
+
+    private fun setupDeleteImageView(viewState: ViewState) {
+        if (viewState == ViewState.EDIT) {
+            binding.deleteImageView.visibility = View.VISIBLE
+            binding.deleteImageView.setOnClickListener {
+                binding.deleteAlertDialog.deleteConfirmationLayout.visibility = View.VISIBLE
+            }
+            setupDeleteConfirmationDialog()
+        }
+    }
+
+    private fun setupDeleteConfirmationDialog() {
+        binding.deleteAlertDialog.cancelTextView.setOnClickListener {
+            binding.deleteAlertDialog.deleteConfirmationLayout.visibility = View.GONE
+        }
+        binding.deleteAlertDialog.deleteTextView.setOnClickListener {
+            addEditPlantViewModel.deletePlant()
+            findNavController().navigate(R.id.action_navigate_back_to_plants)
+        }
+    }
+
+    private fun setupOnBackPressed() {
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    onBackPressed()
+                }
+            }
+        )
+    }
+
+    private fun onBackPressed() {
+        if (binding.deleteAlertDialog.deleteConfirmationLayout.visibility == View.VISIBLE) {
+            binding.deleteAlertDialog.deleteConfirmationLayout.visibility = View.GONE
+        } else {
+            findNavController().popBackStack()
+        }
     }
 }

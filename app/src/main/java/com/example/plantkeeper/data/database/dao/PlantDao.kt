@@ -1,9 +1,6 @@
 package com.example.plantkeeper.data.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.plantkeeper.data.database.entities.PlantDBO
 import com.example.plantkeeper.data.database.entities.PlantUpdateDBO
 import kotlinx.coroutines.flow.Flow
@@ -25,4 +22,7 @@ interface PlantDao {
 
     @Update
     suspend fun updatePlant(plant: PlantDBO)
+
+    @Delete
+    suspend fun deletePlant(plant: PlantDBO)
 }

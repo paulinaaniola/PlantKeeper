@@ -19,4 +19,6 @@ interface PlantsRepository {
     suspend fun getPlantToEdit(plantId: Int): Plant
 
     suspend fun updatePlant(plant: Plant)
+
+    suspend fun deletePlant(plant: Plant)
 }

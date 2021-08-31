@@ -72,4 +72,12 @@ class AddEditPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) 
             photoPath = plant.photoPath
         }
     }
+
+    fun deletePlant() {
+        plantToEdit.value?.let { plantToDelete ->
+            viewModelScope.launch {
+                plantsRepositoryImpl.deletePlant(plantToDelete)
+            }
+        }
+    }
 }

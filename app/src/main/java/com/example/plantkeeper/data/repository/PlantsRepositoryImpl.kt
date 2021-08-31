@@ -1,11 +1,9 @@
 package com.example.plantkeeper.data.repository
 
 import com.example.plantkeeper.data.database.dao.PlantDao
-import com.example.plantkeeper.data.database.entities.PlantDBO
 import com.example.plantkeeper.data.database.entities.PlantUpdateDBO
 import com.example.plantkeeper.data.database.mapper.DbMapper
 import com.example.plantkeeper.domain.Plant
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class PlantsRepositoryImpl(
@@ -34,5 +32,9 @@ class PlantsRepositoryImpl(
 
     override suspend fun updatePlant(plant: Plant) {
         plantsDao.updatePlant(plantsMapper.mapDomainPlantToDb(plant))
+    }
+
+    override suspend fun deletePlant(plant: Plant) {
+        plantsDao.deletePlant(plantsMapper.mapDomainPlantToDb(plant))
     }
 }

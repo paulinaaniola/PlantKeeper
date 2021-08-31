@@ -16,4 +16,7 @@
     <string name="no_plants_added">No plants added, click fab to add the first one!</string>
     <string name="add_new_plant">Add new plant</string>
     <string name="edit_plant">Edit plant</string>
+    <string name="are_you_sure_to_delete_this_plant">Are you sure you want to delete this plant?</string>
+    <string name="delete"><u>Delete</u></string>
+    <string name="cancel"><u>Cancel</u></string>
 </resources>

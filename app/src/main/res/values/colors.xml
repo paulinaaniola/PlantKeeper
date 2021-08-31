@@ -11,4 +11,6 @@
   <color name="brownMedium">#D1B6A5</color>
   <color name="brownDark">#482900</color>
   <color name="beige">#F0F0F0</color>
+  <color name="red">#DB5E40</color>
+  <color name="dialog_background">#E6F4F4F4</color>
 </resources>

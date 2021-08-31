@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.plantkeeper">
+    package="com.paulinaaniola.plantkeeper">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -13,7 +13,7 @@
         android:xlargeScreens="false" />
 
     <application
-        android:name=".application.PlantKeeperApplication"
+        android:name="com.paulinaaniola.plantkeeper.application.PlantKeeperApplication"
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.plantkeeper.ui.navigation.NavigationActivity">
+        <activity android:name="com.paulinaaniola.plantkeeper.ui.navigation.NavigationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

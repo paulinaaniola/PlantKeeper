@@ -7,11 +7,11 @@
 
     <fragment
         android:id="@+id/navigation_plants_list"
-        android:name="com.example.plantkeeper.ui.plantslist.PlantsFragment"
+        android:name="com.paulinaaniola.plantkeeper.ui.plantslist.PlantsFragment"
         tools:layout="@layout/fragment_plants" />
 
     <fragment
         android:id="@+id/navigation_add_edit_plant"
-        android:name="com.example.plantkeeper.ui.addeditplant.AddEditPlantFragment"
+        android:name="com.paulinaaniola.plantkeeper.ui.addeditplant.AddEditPlantFragment"
         tools:layout="@layout/fragment_add_edit_plant" />
 </navigation>

@@ -130,7 +130,9 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
                 binding.wateringFrequencyEditText.setText(
                     plant.wateringFrequency.toDays().toString()
                 )
-                binding.pickPhotoLayout.setPictures(listOf(plant.photoPath))
+                if (plant.photoPath.isNotEmpty()) {
+                    binding.pickPhotoLayout.setPictures(listOf(plant.photoPath))
+                }
             }
         })
     }

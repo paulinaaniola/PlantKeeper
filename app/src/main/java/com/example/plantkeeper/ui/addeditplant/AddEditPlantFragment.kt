@@ -19,6 +19,7 @@ import androidx.activity.OnBackPressedCallback
 import com.example.plantkeeper.databinding.FragmentAddEditPlantBinding
 import com.example.plantkeeper.ui.plantslist.EDIT_PLANT_ID
 import com.example.plantkeeper.utils.addOnTextChanged
+import org.threeten.bp.LocalDate
 
 class AddEditPlantFragment : Fragment(), PickPhotoActions {
 
@@ -33,10 +34,8 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
     ): View {
         binding = FragmentAddEditPlantBinding.inflate(inflater, container, false)
         setupViewModelObservers()
-        setupInputsChangeListeners()
         setupSavePlantFab()
-        setupWateringFrequencyUnitsSpinner()
-        setupSpinnerValuesChangeListener()
+        setupInputs()
         handleViewState()
         setupOnBackPressed()
         binding.pickPhotoLayout.setPickPhotoFragment(this)
@@ -48,17 +47,6 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
         val photoPaths = binding.pickPhotoLayout.getPicturePaths()
         if (photoPaths.isNotEmpty()) {
             addEditPlantViewModel.photoPath = photoPaths[0]
-        }
-    }
-
-    private fun setupInputsChangeListeners() {
-        binding.plantNameEditText.addOnTextChanged {
-            addEditPlantViewModel.plantName = it
-            binding.newPlantEditTextWrapper.error = null
-        }
-        binding.wateringFrequencyEditText.addOnTextChanged {
-            addEditPlantViewModel.wateringFrequencyInput = if (it.isNotEmpty()) it.toInt() else null
-            binding.wateringFrequencyEditTextWrapper.error = null
         }
     }
 
@@ -92,6 +80,36 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
         }
     }
 
+    private fun setupInputs() {
+        setupInputsChangeListeners()
+        setupWateringFrequencyUnitsSpinner()
+        setupSpinnerValuesChangeListener()
+        setupCalendarInputs()
+    }
+
+    private fun setupInputsChangeListeners() {
+        binding.plantNameEditText.addOnTextChanged {
+            addEditPlantViewModel.plantName = it
+            binding.newPlantEditTextWrapper.error = null
+        }
+        binding.wateringFrequencyEditText.addOnTextChanged {
+            addEditPlantViewModel.wateringFrequencyInput = if (it.isNotEmpty()) it.toInt() else null
+            binding.wateringFrequencyEditTextWrapper.error = null
+        }
+    }
+
+    private fun setupWateringFrequencyUnitsSpinner() {
+        val spinnerValues = WateringFrequencyUnit.values().map { it.text }
+        context?.let { context ->
+            val spinnerArrayAdapter: ArrayAdapter<String> = ArrayAdapter(
+                context, android.R.layout.simple_spinner_item,
+                spinnerValues
+            )
+            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.wateringSpinner.adapter = spinnerArrayAdapter
+        }
+    }
+
     private fun setupSpinnerValuesChangeListener() {
         binding.wateringSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -111,20 +129,23 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
             }
     }
 
-    private fun setupWateringFrequencyUnitsSpinner() {
-        val spinnerValues = WateringFrequencyUnit.values().map { it.text }
-        context?.let { context ->
-            val spinnerArrayAdapter: ArrayAdapter<String> = ArrayAdapter(
-                context, android.R.layout.simple_spinner_item,
-                spinnerValues
-            )
-            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.wateringSpinner.adapter = spinnerArrayAdapter
+    private fun setupCalendarInputs() {
+        binding.calendarImageView.setOnClickListener {
+            binding.calendarDialog.calendarLayout.visibility = View.VISIBLE
+            binding.calendarDialog.calendarView.setOnDateChangeListener { _, year, month, day ->
+                onCalendarDateChosen(LocalDate.of(year, month, day))
+            }
         }
     }
 
+    private fun onCalendarDateChosen(chosenDate: LocalDate) {
+        addEditPlantViewModel.lastWateringDate = chosenDate
+        binding.calendarDialog.calendarLayout.visibility = View.GONE
+        binding.lastWateringEditText.setText(chosenDate.toString())
+    }
+
     private fun setupViewModelObservers() {
-        addEditPlantViewModel.plantToEdit?.observe(viewLifecycleOwner, { plant ->
+        addEditPlantViewModel.plantToEdit.observe(viewLifecycleOwner, { plant ->
             plant?.let { plant ->
                 binding.plantNameEditText.setText(plant.name)
                 binding.wateringFrequencyEditText.setText(
@@ -133,6 +154,9 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
                 if (plant.photoPath.isNotEmpty()) {
                     binding.pickPhotoLayout.setPictures(listOf(plant.photoPath))
                 }
+                binding.lastWateringEditText.setText(
+                    plant.lastWateringDay.toString()
+                )
             }
         })
     }
@@ -143,9 +167,16 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
         editPlantId?.let { plantId ->
             addEditPlantViewModel.getPlantToEdit(plantId)
         }
+        setupDefaultWateringDate(viewState)
         setupDialogTitle(viewState)
         setupDeleteImageView(viewState)
         addEditPlantViewModel.viewState = viewState
+    }
+
+    private fun setupDefaultWateringDate(viewState: ViewState) {
+        if (viewState == ViewState.ADD) {
+            binding.lastWateringEditText.setText(addEditPlantViewModel.lastWateringDate.toString())
+        }
     }
 
     private fun setupDialogTitle(viewState: ViewState) {
@@ -187,6 +218,8 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
     private fun onBackPressed() {
         if (binding.deleteAlertDialog.deleteConfirmationLayout.visibility == View.VISIBLE) {
             binding.deleteAlertDialog.deleteConfirmationLayout.visibility = View.GONE
+        } else if (binding.calendarDialog.calendarLayout.visibility == View.VISIBLE) {
+            binding.calendarDialog.calendarLayout.visibility = View.GONE
         } else {
             findNavController().popBackStack()
         }

@@ -6,10 +6,10 @@
     android:background="@color/brownLight">
 
     <FrameLayout
-        android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="16dp"
         android:background="@drawable/rounded_frame_beige"
         android:elevation="5dp">
 
@@ -127,6 +127,46 @@
                     app:layout_constraintBottom_toBottomOf="@id/watering_frequency_edit_text_wrapper"
                     app:layout_constraintStart_toEndOf="@id/watering_frequency_edit_text_wrapper" />
 
+                <TextView
+                    android:id="@+id/last_watering_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/last_watering_colon"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/watering_frequency_edit_text_wrapper" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/last_watering_edit_text_wrapper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@id/water_every_label_text_view"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/last_watering_text_view">
+
+                    <EditText
+                        android:id="@+id/last_watering_edit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="number"
+                        android:textSize="16sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/calendar_image_view"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/ic_calendar"
+                    app:layout_constraintBottom_toBottomOf="@id/last_watering_edit_text_wrapper"
+                    app:layout_constraintStart_toEndOf="@id/last_watering_edit_text_wrapper"
+                    app:layout_constraintTop_toTopOf="@id/last_watering_edit_text_wrapper" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
@@ -148,7 +188,12 @@
 
     <include
         android:id="@+id/delete_alert_dialog"
-        layout="@layout/delete_plant_dialog"
+        layout="@layout/dialog_delete_plant"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/calendar_dialog"
+        layout="@layout/dialog_calendar"
         android:visibility="gone" />
 
 </FrameLayout>

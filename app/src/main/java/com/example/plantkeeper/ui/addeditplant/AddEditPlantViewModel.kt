@@ -14,6 +14,7 @@ class AddEditPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) 
     var plantName: String = ""
     var wateringFrequencyInput: Int? = null
     var photoPath: String = ""
+    var lastWateringDate: LocalDate = LocalDate.now()
     var wateringFrequencyUnit: WateringFrequencyUnit = WateringFrequencyUnit.DAYS
 
     var plantToEdit = MutableLiveData<Plant>()
@@ -58,7 +59,7 @@ class AddEditPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) 
             plantId,
             name = plantName,
             wateringFrequency = wateringFrequency,
-            lastWateringDay = LocalDate.now(),
+            lastWateringDay = lastWateringDate,
             photoPath
         )
     }
@@ -70,6 +71,7 @@ class AddEditPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) 
             plantName = plant.name
             wateringFrequencyInput = plant.wateringFrequency.toDays().toInt()
             photoPath = plant.photoPath
+            lastWateringDate = plant.lastWateringDay
         }
     }
 

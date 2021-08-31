@@ -31,4 +31,8 @@ class PlantsRepositoryImpl(
     override suspend fun getPlantToEdit(plantId: Int): Plant {
         return plantsDao.getPlantToEdit(plantId).let { plantsMapper.mapDbPlantToDomain(it) }
     }
+
+    override suspend fun updatePlant(plant: Plant) {
+        plantsDao.updatePlant(plantsMapper.mapDomainPlantToDb(plant))
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.plantkeeper.data.repository
 
+import androidx.room.Update
 import com.example.plantkeeper.data.database.dao.PlantDao
 import com.example.plantkeeper.data.database.entities.PlantDBO
 import com.example.plantkeeper.data.database.entities.PlantUpdateDBO
@@ -16,4 +17,6 @@ interface PlantsRepository {
     suspend fun updatePlantAsAlreadyWatered(plantUpdate: PlantUpdateDBO)
 
     suspend fun getPlantToEdit(plantId: Int): Plant
+
+    suspend fun updatePlant(plant: Plant)
 }

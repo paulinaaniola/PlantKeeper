@@ -18,7 +18,6 @@ import android.widget.AdapterView
 import com.example.plantkeeper.databinding.FragmentAddEditPlantBinding
 import com.example.plantkeeper.ui.plantslist.EDIT_PLANT_ID
 import com.example.plantkeeper.utils.addOnTextChanged
-import org.koin.android.ext.android.bind
 
 class AddEditPlantFragment : Fragment(), PickPhotoActions {
 
@@ -44,9 +43,11 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
 
     private fun handleEditPlantNavigation() {
         val editPlantId = arguments?.getSerializable(EDIT_PLANT_ID) as? Int
+        val viewState = if (editPlantId != null) ViewState.EDIT else ViewState.ADD
         editPlantId?.let { plantId ->
             addEditPlantViewModel.getPlantToEdit(plantId)
         }
+        addEditPlantViewModel.viewState = viewState
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -63,7 +64,7 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
             binding.newPlantEditTextWrapper.error = null
         }
         binding.wateringFrequencyEditText.addOnTextChanged {
-            addEditPlantViewModel.wateringFrequency = if (it.isNotEmpty()) it.toInt() else null
+            addEditPlantViewModel.wateringFrequencyInput = if (it.isNotEmpty()) it.toInt() else null
             binding.wateringFrequencyEditTextWrapper.error = null
         }
     }
@@ -75,19 +76,18 @@ class AddEditPlantFragment : Fragment(), PickPhotoActions {
     private fun onAddNewPlantClick() {
         val missingNewPlantInfo = addPlantValidator.getNewPlantMissingInfo(
             addEditPlantViewModel.plantName,
-            addEditPlantViewModel.wateringFrequency
+            addEditPlantViewModel.wateringFrequencyInput
         )
         if (missingNewPlantInfo.isEmpty()) {
-            insertNewPlant()
+            onSaveFabClick()
         } else {
             setErrors(missingNewPlantInfo)
         }
     }
 
-    private fun insertNewPlant() {
-        addEditPlantViewModel.insertPlant {
-            findNavController().navigate(R.id.action_navigate_back_to_plants)
-        }
+    private fun onSaveFabClick() {
+        addEditPlantViewModel.onSaveButtonAction()
+        findNavController().navigate(R.id.action_navigate_back_to_plants)
     }
 
     private fun setErrors(missingInfo: List<ValidatedField>) {

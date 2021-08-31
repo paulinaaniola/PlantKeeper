@@ -22,4 +22,7 @@ interface PlantDao {
 
     @Query("SELECT * FROM plants_table WHERE id is :plantId")
     suspend fun getPlantToEdit(plantId: Int): PlantDBO
+
+    @Update
+    suspend fun updatePlant(plant: PlantDBO)
 }

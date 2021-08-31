@@ -12,64 +12,22 @@ import org.threeten.bp.LocalDate
 class AddEditPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) : ViewModel() {
 
     var plantName: String = ""
-    var wateringFrequency: Int? = null
+    var wateringFrequencyInput: Int? = null
     var photoPath: String = ""
     var wateringFrequencyUnit: WateringFrequencyUnit = WateringFrequencyUnit.DAYS
 
     var plantToEdit = MutableLiveData<Plant>()
+    var viewState: ViewState? = null
 
-    fun insertPlant(onPlantInsertedAction: () -> Unit) {
-        wateringFrequency?.let { wateringFrequency ->
-            viewModelScope.launch {
-                plantsRepositoryImpl.insertPlant(
-                    Plant(
-                        null,
-                        name = plantName,
-                        wateringFrequency = getWateringDurationInDays(wateringFrequency.toLong()),
-                        lastWateringDay = LocalDate.now(),
-                        photoPath
-                    )
-                )
-//                plantsRepositoryImpl.insertPlant(
-//                    Plant(
-//                        null,
-//                        name = "Neares Storczyk",
-//                        wateringFrequency = Duration.ofDays(4),
-//                        lastWateringDay = LocalDate.now().minusDays(4),
-//                        ""
-//                    )
-//                )
-//                plantsRepositoryImpl.insertPlant(
-//                    Plant(
-//                        null,
-//                        name = "Need water kwioatek",
-//                        wateringFrequency = Duration.ofDays(5),
-//                        lastWateringDay = LocalDate.now().minusDays(5),
-//                        ""
-//                    )
-//                )
-//                plantsRepositoryImpl.insertPlant(
-//                    Plant(
-//                        null,
-//                        name = "Need water kwioatek",
-//                        wateringFrequency = Duration.ofDays(5),
-//                        lastWateringDay = LocalDate.now().minusDays(5),
-//                        ""
-//                    )
-                //           )
-            }.invokeOnCompletion {
-                onPlantInsertedAction()
+    fun onSaveButtonAction() {
+        wateringFrequencyInput?.let { wateringFrequency ->
+            val wateringFrequencyDuration = getWateringDurationInDays(wateringFrequency.toLong())
+            val plant = getPlantObjectFromInputs(wateringFrequencyDuration)
+            if (viewState == ViewState.ADD) {
+                insertPlant(plant)
+            } else {
+                editPlant(plant)
             }
-        }
-    }
-
-    fun getPlantToEdit(plantId: Int) {
-        viewModelScope.launch {
-            val plant = plantsRepositoryImpl.getPlantToEdit(plantId)
-            plantToEdit?.postValue(plant)
-            plantName = plant.name
-            wateringFrequency = plant.wateringFrequency.toDays().toInt()
-            photoPath = plant.photoPath
         }
     }
 
@@ -78,6 +36,40 @@ class AddEditPlantViewModel(private val plantsRepositoryImpl: PlantsRepository) 
             Duration.ofDays(wateringFrequencyInput * 7)
         } else {
             Duration.ofDays(wateringFrequencyInput)
+        }
+    }
+
+
+    private fun insertPlant(plant: Plant) {
+        viewModelScope.launch {
+            plantsRepositoryImpl.insertPlant(plant)
+        }
+    }
+
+    private fun editPlant(plant: Plant) {
+        viewModelScope.launch {
+            plantsRepositoryImpl.updatePlant(plant)
+        }
+    }
+
+    private fun getPlantObjectFromInputs(wateringFrequency: Duration): Plant {
+        val plantId = if (viewState == ViewState.ADD) null else plantToEdit.value?.id
+        return Plant(
+            plantId,
+            name = plantName,
+            wateringFrequency = wateringFrequency,
+            lastWateringDay = LocalDate.now(),
+            photoPath
+        )
+    }
+
+    fun getPlantToEdit(plantId: Int) {
+        viewModelScope.launch {
+            val plant = plantsRepositoryImpl.getPlantToEdit(plantId)
+            plantToEdit.postValue(plant)
+            plantName = plant.name
+            wateringFrequencyInput = plant.wateringFrequency.toDays().toInt()
+            photoPath = plant.photoPath
         }
     }
 }

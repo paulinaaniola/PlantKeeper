@@ -10,9 +10,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.paulinaaniola.plantkeeper.R
 import com.paulinaaniola.plantkeeper.databinding.FragmentPlantsBinding
+import com.paulinaaniola.plantkeeper.utils.delayOnLifecycle
+import com.paulinaaniola.plantkeeper.utils.fadeIn
+import com.paulinaaniola.plantkeeper.utils.fadeOut
+import kotlinx.android.synthetic.main.fragment_plants.*
+import kotlinx.coroutines.delay
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 const val EDIT_PLANT_ID = "edit_plant_id"
+const val WATERING_ANIMATION_LENGTH = 1500L
 
 class PlantsFragment : Fragment(), PlantItemClickActions {
 
@@ -58,7 +64,19 @@ class PlantsFragment : Fragment(), PlantItemClickActions {
     }
 
     override fun onWateringCanIconClick(plantId: Int) {
-        plantsViewModel.updatePlantAsAlreadyWatered(plantId)
+        displayWateringWomanAnimation(plantId)
+    }
+
+    private fun displayWateringWomanAnimation(plantId: Int) {
+        animationViewBackground.fadeIn()
+        animationView.fadeIn()
+        animationView.playAnimation()
+        animationView.delayOnLifecycle(WATERING_ANIMATION_LENGTH) {
+            animationViewBackground.fadeOut()
+            animationView.fadeOut()
+            animationView.cancelAnimation()
+            plantsViewModel.updatePlantAsAlreadyWatered(plantId)
+        }
     }
 
     override fun onPlantItemClick(plantId: Int) {
